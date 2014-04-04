@@ -11,7 +11,7 @@ import (
 
 var (
 	counter       = make(map[string]int)
-	statsFilePath = "/tmp/like.json"
+	statsFilePath = "/var/lib/like.json"
 )
 
 func logIf(err error) {
@@ -29,8 +29,10 @@ func writeCounterData() {
 	data, err := json.Marshal(counter)
 	logIf(err)
 
-	_, err = f.Write(data)
-	logIf(err)
+	if err == nil {
+		_, err = f.Write(data)
+		logIf(err)
+	}
 }
 
 func buttonHandler(w http.ResponseWriter, r *http.Request) {
@@ -76,13 +78,17 @@ func buttonHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	log.Println("Starting server on port 8080...")
 
-	content, err := ioutil.ReadFile(statsFilePath)
-	logIf(err)
+	// Load the data dump
+	if _, err := os.Stat(statsFilePath); err == nil {
+		content, err := ioutil.ReadFile(statsFilePath)
+		logIf(err)
 
-	err = json.Unmarshal(content, &counter)
-	logIf(err)
+		err = json.Unmarshal(content, &counter)
+		logIf(err)
+	} else {
+		log.Print("No stat file found, starting fresh")
+	}
 
 	http.HandleFunc("/", buttonHandler)
-	http.ListenAndServe(":8081", nil)
+	http.ListenAndServe(":12100", nil)
 }
-
