@@ -72,7 +72,10 @@ func buttonHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprint(w, string(response))
-	writeCounterData()
+    
+    if method == "POST" { 
+        writeCounterData()
+    }
 }
 
 func main() {
