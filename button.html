@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<meta charset="utf-8"/>
+
+<style type="text/css" encoding="utf-8">
+@charset "utf-8";
+
+.like-button {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 14px;
+    font-family: Helvetica, sans-serif;
+    position: absolute;
+    bottom: 20px;
+    right: 15px;
+}
+
+.like-button-text {
+    font-weight: 600;
+    color: #fff;
+    background-color: #5A80C4;
+    line-height: 1;
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+    padding: 5px 10px 5px 40px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    border-bottom: 1px solid rgba(0,0,0,0.25);
+    cursor: pointer;
+}
+
+.like-button-text::before {
+    content: "♥";
+    color: red;
+    font-size: 62px;
+    position: absolute;
+    left: 0;
+    line-height: 0;
+    top: 9px;
+    text-shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+
+.like-button-text:hover {
+    background-color: #A2BCE9;
+}
+
+.like-button-counter {
+    color: #aaa;
+    font-size: 11px;
+    padding-left: 3px;
+}
+</style>
+
+<div class="like-button" data-id="example.com/unique-id">
+    <span class="like-button-text">Looks delicious!</span>
+    <span class="like-button-counter">0</span>
+</div>
